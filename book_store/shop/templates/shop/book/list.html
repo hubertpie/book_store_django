@@ -1,1 +1,9 @@
 {% extends 'shop/base.html' %}
+
+{% block content %}
+
+{% for item in books %}
+{{ item.title }}
+{% endfor %}
+
+{% endblock %}
