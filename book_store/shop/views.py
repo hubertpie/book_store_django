@@ -15,5 +15,8 @@ def book_list(request, category_slug=None):
 				'categories': categories})
 
 
-def book_detail(request):
-	pass
+def book_detail(request, id, slug):
+	book = get_object_or_404(Book, id=id, slug=slug, available=True)
+	return render(request, 
+				'shop/book/detail.html',
+				{'book':'book'})
