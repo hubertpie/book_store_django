@@ -7,9 +7,13 @@ def book_list(request, category_slug=None):
 	books = Book.objects.filter(available=True)
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
-		books = Book.objects.filter(category=category, available=True)
+		books = books.filter(category=category)
 	return render(request, 
 				'shop/book/list.html',
 				{'books': books,
 				'category': category,
 				'categories': categories})
+
+
+def book_detail(request):
+	pass
