@@ -72,8 +72,6 @@ class HomePageTest(TestCase):
 
 class BookDetailTest(TestCase):
 
-
-
 	def test_display_book_detail_page(self):
 		category = Category.objects.create(name='Fantasy', slug='fantasy')
 		book = Book.objects.create(category=category, 
@@ -88,3 +86,23 @@ class BookDetailTest(TestCase):
 		response = self.client.get(f'/{book.id}/{book.slug}/')
 		self.assertEqual(response.status_code, 200)
 
+	
+	def test_display_book_details(self):
+		category = Category.objects.create(name='Fantasy', slug='fantasy')
+		book = Book.objects.create(category=category, 
+									title="Bilbo le Hobbit",
+									slug='bilbo-le-hobbit',
+									author='J.R.R. Tolkien',
+									publishing_house='Ace Books',
+									price=22.31,
+									release_date=datetime.date(1995, 9, 30),
+									pages=995)
+
+		response = self.client.get(f'/{book.id}/{book.slug}/')
+
+		print(response.content.decode())
+		self.assertContains(response, book.title)
+		self.assertContains(response, book.author)
+		self.assertContains(response, book.release_date)
+		self.assertContains(response, book.publishing_house)
+		self.assertContains(response, book.price)

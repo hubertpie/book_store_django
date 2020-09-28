@@ -19,4 +19,4 @@ def book_detail(request, id, slug):
 	book = get_object_or_404(Book, id=id, slug=slug, available=True)
 	return render(request, 
 				'shop/book/detail.html',
-				{'book':'book'})
+				{'book': book})
