@@ -1,11 +1,43 @@
 {% extends 'shop/base.html' %}
-
+{% load static %}
 {% block content %}
-
-{{ book.title }}
-{{ book.author }}
-{{ book.release_date }}
-{{ book.publishing_house }}
-{{ book.price }}
-{{ book.description }}
+<div class="row">
+    <div class="col">
+        <img src="{% if book.image %}{{ book.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
+    </div>
+    <div class="col-6">
+        <p class="h2">{{ book.title }}</p>
+        <div class="row">
+            <div class="col">
+                <p><em>By {{ book.author }}</em></p>
+            </div>
+        </div>
+        <p class="text-justify">
+            {{ book.description|truncatewords:100 }}
+        </p>
+    </div>
+    <div class="col">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <p class="h3 text-center">{{ book.price }}$</p>
+              <div class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success">Add to cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+<hr>
+<div class="class">
+    <h3 class="text-left">Product details</h3>
+</div>
+<div class="row">
+    <div class="col"><p><strong>Author:</strong> {{ book.author }}</p></div>
+    <div class="col"><p><strong>Publishing house:</strong> {{ book.publishing_house }}</p></div>
+    <div class="w-100"></div>
+    <div class="col"><p><strong>Release date:</strong> {{ book.release_date }}</p></div>
+    <div class="col"><p><strong>Pages:</strong> {{ book.pages }}</p></div>
+  </div>
 {% endblock %}

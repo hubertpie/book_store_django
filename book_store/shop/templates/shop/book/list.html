@@ -8,7 +8,7 @@
 			    <div class="col-md-4">
 				  <div class="card mb-4 box-shadow">
                       <a href="{{ item.get_absolute_url }}">
-                        <img class="card-img-top" src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
+                        <img class="img-thumbnail" src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
                       </a>
 					<div class="card-body">
                       <p class="h5"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></p>
