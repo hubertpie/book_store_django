@@ -40,17 +40,20 @@ for book in book_urls:
         book_release_date = datetime.datetime.strptime(soup2.find('span', {'itemprop': "datePublished"}).text, '%d %b %Y')
         book_pages = re.findall(r"\d+",soup2.find('span', {'itemprop': 'numberOfPages'}).text )[0]
 
-        book = Book(category=random.choice(Category.objects.all()),
-                            title=book_title,
-                            author=book_author,
-                            publishing_house=book_publisher,
-                            description=book_desc,
-                            price= round(random.uniform(10, 40), 2),
-                            release_date=book_release_date,
-                            pages=book_pages)
+        try:
+            book = Book(category=random.choice(Category.objects.all()),
+                                title=book_title,
+                                author=book_author,
+                                publishing_house=book_publisher,
+                                description=book_desc,
+                                price= round(random.uniform(10, 40), 2),
+                                release_date=book_release_date,
+                                pages=book_pages)
 
-        request_3 = requests.get(image_url)
-        if request_3.status_code == 200:
-            book.image.save(name, ContentFile(request_3.content), save=True)
-        else:
+            request_3 = requests.get(image_url)
+            if request_3.status_code == 200:
+                book.image.save(name, ContentFile(request_3.content), save=True)
+            else:
+                continue
+        except AttributeError:
             continue

@@ -17,6 +17,8 @@ def book_list(request, category_slug=None):
 
 def book_detail(request, id, slug):
 	book = get_object_or_404(Book, id=id, slug=slug, available=True)
+	book_category = get_object_or_404(Category, name=book.category)
 	return render(request, 
 				'shop/book/detail.html',
-				{'book': book})
+				{'book': book,
+				'book_category': book_category})
