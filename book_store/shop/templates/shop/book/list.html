@@ -1,5 +1,14 @@
 {% extends 'shop/base.html' %}
 {% load static %}
+
+{% block title %}
+{% if category %}
+{{ category.name }} Books
+{% else %}
+Home page
+{% endif%}
+{% endblock %}
+
 {% block content %}
 <div class="album py-5 bg-light">
 	<div class="container">
