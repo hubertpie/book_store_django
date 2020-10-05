@@ -1,0 +1,43 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>Cart is empty</h1>
+<table class="table">
+    <thead>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Delete</th>
+        <th>Unit price</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+            {% with book=item.book %}
+            <tr>
+                <td>
+                    <a href="{{ book.get_absolute_url }}">
+                        {% load thumbnail %}
+                        {% thumbnail book.image "200" as im %}
+                        <img src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
+                        {% endthumbnail %}
+                    </a>
+                </td>
+                <td><strong>{{ book.title }}</strong> by <em>{{ book.author }}</em></td>
+                <td>{{ item.quantity }}</td>
+                <td><a href="{% url 'cart:cart_remove' book.id %}" class="text-danger">Delete</a></td>
+                <td>{{ item.price }}$</td>
+                <td>{{ item.total_price }}$</td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr>
+            <td class="display-4">Total price</td>
+            <td class="display-4">{{ cart.get_total_price }}$</td>
+        </tr>
+    </tbody>
+</table>
+<h4><a href="{% url 'shop:book_list' %}" class="text-info">Continue shopping</a></h4>
+{% endblock %}
