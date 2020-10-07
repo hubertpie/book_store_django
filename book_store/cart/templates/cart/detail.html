@@ -41,5 +41,12 @@ Cart
         </tr>
     </tbody>
 </table>
-<h4><a href="{% url 'shop:book_list' %}" class="text-info">Continue shopping</a></h4>
+<div class="row">
+    <div class="col">
+        <h4><a href="{% url 'shop:book_list' %}" class="text-info">Continue shopping</a></h4>
+    </div>
+    <div class="col">
+        <h4><a href="{% url 'orders:order_create' %}" class="text-info">Checkout</a></h4>
+    </div>
+</div>
 {% endblock %}
