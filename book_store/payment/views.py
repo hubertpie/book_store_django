@@ -10,7 +10,7 @@ def payment_process(request):
         # getting nonce token
         nonce = request.POST.get('payment_method_nonce', None)
         result = braintree.Transaction.sale({
-            'amount': ':.2f'.format(order.get_total_costs()),
+            'amount': order.get_total_costs(),
             'payment_method_nonce': nonce,
             'options': {
                 'submit_for_settlement': True
@@ -28,7 +28,7 @@ def payment_process(request):
     else:
         client_token = braintree.ClientToken.generate()
         return render(request,
-                    'payment/proccess.html',
+                    'payment/process.html',
                     {'order': order,
                     'client_token': client_token})
 
