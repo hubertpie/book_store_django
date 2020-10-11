@@ -9,22 +9,17 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+from . import secrets
 from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'gn1_^h6nrm9tycf*^p&wzb+vlx&oh8hpi&(j5@-7(yr+bf@5dh'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+SECRET_KEY = secrets.SECRET_KEY
 
 ALLOWED_HOSTS = []
 
@@ -42,6 +37,7 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'orders',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +127,7 @@ CART_SESSION_ID = 'cart'
 
 # Dont send mail please
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+BRAINTREE_MERCHANT_ID = secrets.BRAINTREE_MERCHANT_ID
+BRAINTREE_PUBLIC_KEY = secrets.BRAINTREE_PUBLIC_KEY
+BRAINTREE_PRIVATE_KEY= secrets.BRAINTREE_PRIVATE_KEY
