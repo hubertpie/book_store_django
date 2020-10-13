@@ -1,1 +1,22 @@
 {% extends 'shop/base.html' %}
+
+{% block title%}Pay with credit card{% endblock %}
+
+{% block content %}
+<h1>Pay with credit card</h1>
+<form action="." method="POST">
+    <label for="card-number">Card number</label>
+    <div id="card-number"></div>
+
+    <label for="card-number">CVV</label>
+    <div id="card-number"></div>
+
+    <label for="card-number">Expiry date</label>
+    <div id="card-number"></div>
+
+    <input type="hidden" id="nonce" name="payment_method_nonce" value="">
+    {% csrf_token %}
+    <input type="submit" value="Pay">
+</form>
+<script src="https://js.braintreegateway.com/js/braintree-2.32.1.min.js"></script>
+{% endblock %}
