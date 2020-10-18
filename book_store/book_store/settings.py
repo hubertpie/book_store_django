@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from . import secrets
 from pathlib import Path
 import os
+import braintree
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -132,10 +133,13 @@ BRAINTREE_MERCHANT_ID = secrets.BRAINTREE_MERCHANT_ID
 BRAINTREE_PUBLIC_KEY = secrets.BRAINTREE_PUBLIC_KEY
 BRAINTREE_PRIVATE_KEY= secrets.BRAINTREE_PRIVATE_KEY
 
-from braintree import Configuration, Environment
-Configuration.configure(
-    Environment.Sandbox,
+
+gateway = braintree.BraintreeGateway(
+braintree.Configuration.configure
+    (
+    braintree.Environment.Sandbox,
     BRAINTREE_MERCHANT_ID,
     BRAINTREE_PUBLIC_KEY,
     BRAINTREE_PRIVATE_KEY
+    )
 )

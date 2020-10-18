@@ -1,22 +1,44 @@
 {% extends 'shop/base.html' %}
-
-{% block title%}Pay with credit card{% endblock %}
-
 {% block content %}
-<h1>Pay with credit card</h1>
-<form action="." method="POST">
-    <label for="card-number">Card number</label>
-    <div id="card-number"></div>
+    <header>
+      <h1>Hi, {{ order.first_name }}.
+        <br>Here you can pay for your order.</h1>
+    </header>
+    <h4>Amount to pay: {{ order.get_total_cost }}$</h4>
+    <form id="payment-form" method="post" action=".">
+        <div class="bt-drop-in-wrapper">
+          <div id="bt-dropin"></div>
+        </div>
+      </section>
+      <input type="hidden" id="nonce" name="payment_method_nonce" />
+      <button class="btn btn-primary btn-lg" type="submit" id="submit-button"><span>Pay</span></button>
+      {% csrf_token %}
+    </form>
+<script src="https://js.braintreegateway.com/web/dropin/1.25.0/js/dropin.min.js"></script>
+<script>
+  var form = document.querySelector('#payment-form');
+  var client_token = '{{ client_token }}';
 
-    <label for="card-number">CVV</label>
-    <div id="card-number"></div>
+  braintree.dropin.create({
+    authorization: client_token,
+    container: '#bt-dropin',
+    paypal: {
+      flow: 'vault'
+    }
+  }, function (createErr, instance) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-    <label for="card-number">Expiry date</label>
-    <div id="card-number"></div>
+      instance.requestPaymentMethod(function (err, payload) {
+        if (err) {
+          console.log('Error', err);
+          return;
+        }
 
-    <input type="hidden" id="nonce" name="payment_method_nonce" value="">
-    {% csrf_token %}
-    <input type="submit" value="Pay">
-</form>
-<script src="https://js.braintreegateway.com/js/braintree-2.32.1.min.js"></script>
+        document.querySelector('#nonce').value = payload.nonce;
+        form.submit();
+      });
+    });
+  });
+</script>
 {% endblock %}
