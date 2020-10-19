@@ -38,18 +38,18 @@ Cart
 </table>
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            <p class="font-weight-bold h4">Total price</p>
+        <div class="col-3">
+            <div class="row">
+                <p class="font-weight-bold h4">Total price</p>  
+            </div>
+            <div class="row">
+                <p class="font-weight-bold h4">{{ cart.get_total_price }}$</p>
+            </div>
         </div>
-        <div class="col-6">
-            <p class="font-weight-bold h4">{{ cart.get_total_price }}$</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
+        <div class="col-4 text-center">
             <p class="h4"><a href="{% url 'shop:book_list' %}" class="text-info">Continue shopping</a></p>
         </div>
-        <div class="col">
+        <div class="col-5 text-right">
             <p class="h4"><a href="{% url 'orders:order_create' %}" class="text-info">Checkout</a></p>
         </div>
     </div>
