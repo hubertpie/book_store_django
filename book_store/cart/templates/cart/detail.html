@@ -1,6 +1,6 @@
 {% extends 'shop/base.html' %}
 {% load static %}
-
+{% load thumbnail %}
 {% block title %}
 Cart
 {% endblock %}
@@ -21,8 +21,7 @@ Cart
             <tr>
                 <td>
                     <a href="{{ book.get_absolute_url }}">
-                        {% load thumbnail %}
-                        {% thumbnail book.image "200" as im %}
+                        {% thumbnail book.image "100x100" as im %}
                         <img src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
                         {% endthumbnail %}
                     </a>
@@ -35,18 +34,24 @@ Cart
             </tr>
             {% endwith %}
         {% endfor %}
-        <tr>
-            <td class="display-4">Total price</td>
-            <td class="display-4">{{ cart.get_total_price }}$</td>
-        </tr>
     </tbody>
 </table>
-<div class="row">
-    <div class="col">
-        <h4><a href="{% url 'shop:book_list' %}" class="text-info">Continue shopping</a></h4>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <p class="font-weight-bold h4">Total price</p>
+        </div>
+        <div class="col-6">
+            <p class="font-weight-bold h4">{{ cart.get_total_price }}$</p>
+        </div>
     </div>
-    <div class="col">
-        <h4><a href="{% url 'orders:order_create' %}" class="text-info">Checkout</a></h4>
+    <div class="row">
+        <div class="col">
+            <p class="h4"><a href="{% url 'shop:book_list' %}" class="text-info">Continue shopping</a></p>
+        </div>
+        <div class="col">
+            <p class="h4"><a href="{% url 'orders:order_create' %}" class="text-info">Checkout</a></p>
+        </div>
     </div>
 </div>
 {% endblock %}
