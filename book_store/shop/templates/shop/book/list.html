@@ -1,6 +1,6 @@
 {% extends 'shop/base.html' %}
 {% load static %}
-
+{% load thumbnail %}
 {% block title %}
 {% if category %}
 {{ category.name }} Books
@@ -17,8 +17,10 @@ Home page
 			    <div class="col-md-4">
 				  <div class="card mb-4 box-shadow">
                       <a href="{{ item.get_absolute_url }}">
-                        <img class="img-thumbnail" src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
-                      </a>
+						  {% thumbnail item.image "300x300" as im %}
+                        <img class="img-thumbnail" src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
+						 {% endthumbnail %}
+					</a>
 					<div class="card-body">
                       <p class="h5"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></p>
                       <p class="card-text"><em>{{ item.author }}</em></p>
