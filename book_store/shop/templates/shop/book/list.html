@@ -14,10 +14,10 @@ Home page
 	<div class="container">
 		<div class="row">
             {% for item in books %}
-			    <div class="col-md-4">
-				  <div class="card mb-4 box-shadow">
+			    <div class="col-md-3">
+				  <div class="card mb-3 box-shadow">
                       <a href="{{ item.get_absolute_url }}">
-						  {% thumbnail item.image "300x300" as im %}
+						  {% thumbnail item.image "200x200" as im %}
                         <img class="img-thumbnail" src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
 						 {% endthumbnail %}
 					</a>

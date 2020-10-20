@@ -8,13 +8,13 @@
 {% block content %}
 <div class="row">
     <div class="col">
-        {% load thumbnail %}
+        {% load thumbnail %}    
         {% thumbnail book.image "250" as im %}
         <img src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
         {% endthumbnail %}
     </div>
     <div class="col-6">
-        <p class="h2">{{ book.title }}</p>
+        <p class="h1">{{ book.title }}</p>
         <div class="row">
             <div class="col">
                 <p><em>By {{ book.author }}</em></p>

@@ -12,13 +12,20 @@
 <div class="container">
 	<header class="blog-header py-3">
 		<div class="row flex-nowrap justify-content-between align-items-center">
-			<div class="col-4 pt-1">
+			<div class="col-3 pt-1">
 			  <a class="h4" href="{% url 'shop:book_list' %}">Home page</a>
 			</div>
-			<div class="col-4 text-center">
+			<div class="col-3 text-center">
 			  <a class="h3" href="{% url 'shop:book_list' %}">Book store</a>
 			</div>
-			<div class="col-4 d-flex justify-content-end align-items-center">
+			<div class="col-3 text-center">
+				{% if request.user.is_authenticated %}
+					<a class="h5" href="{% url 'account:logout' %}">Log out</a>
+				{%else %}
+					<a class="h5" href="{% url 'account:login' %}">Log in</a>
+				{% endif %}
+			  </div>
+			<div class="col-3 d-flex justify-content-end align-items-center">
 				{% with total_items=cart|length %}
 				{% if cart|length > 0 %}
 					<p class="text-primary">

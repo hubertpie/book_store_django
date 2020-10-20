@@ -1,0 +1,17 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<h1>Sign in</h1>
+{% if fomrs.errors %}
+<p>Something went wrong, please try again.</p>
+{% else %}
+<p>Please fill form below to sign in</p>
+{% endif %}
+<form action="." method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Sign in"></p>
+</form>
+{% endblock %}
