@@ -1,6 +1,7 @@
 import braintree
 from django.shortcuts import render, redirect, get_object_or_404
 from orders.models import Order
+from django.contrib.auth import authenticate
 
 def payment_process(request):
     order_id = request.session.get('order_id')
@@ -18,6 +19,8 @@ def payment_process(request):
         })
 
         if result.is_success:
+            if request.user.is_authenticated:
+                order.user = request.user
             order.paid = True
             order.braintree_id = result.transaction.id
             order.save()

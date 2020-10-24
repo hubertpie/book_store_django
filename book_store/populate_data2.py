@@ -32,14 +32,16 @@ for book in book_urls:
         image_url = soup2.find('img', {'class': 'book-img'}).get('src')
         name = urlparse(image_url).path.split('/')[-1]
     if result_2.status_code == 200:
-        soup2 = BeautifulSoup(result_2.content, 'html.parser')
-        book_title = soup2.find('h1', {'itemprop': 'name'}).text.strip()
-        book_author = soup2.find('div', {'class': 'author-info hidden-md'}).find('span', {'itemprop' : 'name'}).text.strip()
-        book_publisher = soup2.find('div', {'class': 'biblio-wrap'}).find('span', {'itemprop': 'publisher'}).find('span', {'itemprop': 'name'}).text.strip()
-        book_desc = " ".join(soup2.find('div', {'class': 'item-excerpt trunc', 'itemprop' : 'description'}).text.split())
-        book_release_date = datetime.datetime.strptime(soup2.find('span', {'itemprop': "datePublished"}).text, '%d %b %Y')
-        book_pages = re.findall(r"\d+",soup2.find('span', {'itemprop': 'numberOfPages'}).text )[0]
-
+        try:
+            soup2 = BeautifulSoup(result_2.content, 'html.parser')
+            book_title = soup2.find('h1', {'itemprop': 'name'}).text.strip()
+            book_author = soup2.find('div', {'class': 'author-info hidden-md'}).find('span', {'itemprop' : 'name'}).text.strip()
+            book_publisher = soup2.find('div', {'class': 'biblio-wrap'}).find('span', {'itemprop': 'publisher'}).find('span', {'itemprop': 'name'}).text.strip()
+            book_desc = " ".join(soup2.find('div', {'class': 'item-excerpt trunc', 'itemprop' : 'description'}).text.split())
+            book_release_date = datetime.datetime.strptime(soup2.find('span', {'itemprop': "datePublished"}).text, '%d %b %Y')
+            book_pages = re.findall(r"\d+",soup2.find('span', {'itemprop': 'numberOfPages'}).text )[0]
+        except AttributeError:
+            continue
         try:
             book = Book(category=random.choice(Category.objects.all()),
                                 title=book_title,
