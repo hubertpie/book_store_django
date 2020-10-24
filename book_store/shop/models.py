@@ -20,6 +20,10 @@ class Category(models.Model):
 	def get_absolute_url(self):
 		return reverse('shop:book_list_by_category',
 						args=[self.slug])
+	
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(Category, self).save(*args, **kwargs)
 
 class Book(models.Model):
 

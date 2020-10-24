@@ -1,5 +1,4 @@
 import os, django
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'book_store.settings')
 django.setup()
 
@@ -13,6 +12,15 @@ from urllib.parse import urlparse
 from django.core.files.base import ContentFile
 example = 'https://www.bookdepository.com/'
 result = requests.get(example)
+
+CATEGORIES_LIST = ['Fantasy','Adventure','Romance','Contemporary','Dystopian','Mystery','Horror',
+'Thriller','Paranormal','Historical fiction','Science Fiction',
+'Memoir','Cooking','Art','Self-help',
+'Development','Motivational','Health','History',
+'Travel','Guide','Families','Humor',]
+
+for category in CATEGORIES_LIST:
+    Category.objects.create(name=category)
 
 if result.status_code == 200:
     soup = BeautifulSoup(result.content, "html.parser")
