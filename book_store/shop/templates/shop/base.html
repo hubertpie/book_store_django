@@ -1,59 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>
-		{% block title %}
-		{% endblock %}
-	</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="/static/bootstrap.css">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Book Book</title>
+  <link rel="stylesheet" type="text/css" href="/static/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/static/mycss.css">
+
 </head>
+
 <body>
-<div class="container">
-	<header class="blog-header py-3">
-		<div class="row flex-nowrap justify-content-between align-items-center">
-			<div class="col-3 pt-1">
-			  <a class="h4" href="{% url 'shop:book_list' %}">Home page</a>
-			</div>
-			<div class="col-3 text-center">
-			  <a class="h3" href="{% url 'shop:book_list' %}">Book store</a>
-			</div>
-			<div class="col-3 text-center">
-				{% if request.user.is_authenticated %}
-					<a class="h5" href="{% url 'account:logout' %}">Log out</a>
-				{%else %}
-					<a class="h5" href="{% url 'account:login' %}">Log in</a>
-				{% endif %}
-			  </div>
-			<div class="col-3 d-flex justify-content-end align-items-center">
-				{% with total_items=cart|length %}
-				{% if cart|length > 0 %}
-					<p class="text-primary">
-						<strong>Cart: </strong>
-						<a href="{% url 'cart:cart_detail' %}">
-							{{ total_items }} Product{{ total_items|pluralize:'s'}}
-							{{ cart.get_total_price }}
-						</a>
-					</p>
-				{% else %}
-						Cart is empty
-				{% endif %}
-				{% endwith %}
-			</div>
-		  </div>
-	</header>
-  
-	<div class="nav-scroller py-1 mb-2">
-		<nav class="nav d-flex justify-content-between">
-			{% for category in categories %}
-			<a class="p-2 text-dark" href="{{  category.get_absolute_url }}">{{ category.name }}</a>
-			{% endfor %}
-		  </nav>
-	</div>
-<div class="container">
-	{% block content %}
-	{% endblock %}
-</div>
-</div>
+  <div class="d-flex" id="wrapper">
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">
+        <a class="nav-link deco-none" href="/shop">Book Book</a>
+      </div>
+      <div class="list-group list-group-flush">
+      {% block sidebar %}
+      {% if categories %}
+        {% for category in categories %}
+        <a class="list-group-item list-group-item-action bg-light" href="{{  category.get_absolute_url }}">{{ category.name }}</a>
+        {% endfor %}
+      {% endif %}
+      {% endblock %}
+      </div>
+    </div>
+    <div id="page-content-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item mr-4">
+              <a class="h5" href="#">Profile</a>
+            </li>
+            <li class="nav-item mr-4">
+              <a class="h5" href="{% url 'account:login' %}">Log out</a>
+            </li>
+            {%else %}
+            <li class="nav-item mr-4">
+              <a class="h5" href="{% url 'account:login' %}">Log in</a>
+            </li>
+            {% endif %}
+            <li class="nav-item mr-4">
+              {% with total_items=cart|length %}
+              {% if cart|length > 0 %}
+                <p>
+                  <strong>Cart: </strong>
+                  <a class="deco-none" href="{% url 'cart:cart_detail' %}">
+                    {{ total_items }} Product{{ total_items|pluralize:'s'}}
+                    {{ cart.get_total_price }}
+                  </a>
+                </p>
+              {% else %}
+                  Cart is empty
+              {% endif %}
+              {% endwith %}
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
 </body>
+
 </html>

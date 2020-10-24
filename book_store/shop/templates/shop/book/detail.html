@@ -5,9 +5,23 @@
 {{ book.title }}
 {% endblock %}
 
+{% block sidebar %}
+    <h3>Order details:</h3>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Price: {{ book.price }}$</li>
+        <li class="list-group-item">Availability: {{ book.available }}</li>
+        <li class="list-group-item">Shipment: 2-3 days</li>
+      </ul>
+    <form action="{% url 'cart:cart_add' book.id %}" method="POST">
+        {{ cart_product_form }}
+        {% csrf_token %}
+    <input class="btn btn-primary" type="submit" value="Add to cart">
+    </form>
+{%  endblock %}
+
 {% block content %}
 <div class="row">
-    <div class="col">
+    <div class="col-4">
         {% load thumbnail %}    
         {% thumbnail book.image "250" as im %}
         <img src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
@@ -31,22 +45,6 @@
         <p class="text-justify">
             {{ book.description|truncatewords:100 }}
         </p>
-    </div>
-    <div class="col">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-              <p class="h3 text-center">{{ book.price }}$</p>
-              <div class="text-center">
-                <div class="btn-group">
-                    <form action="{% url 'cart:cart_add' book.id %}" method="POST">
-                        {{ cart_product_form }}
-                        {% csrf_token %}
-                        <input type="submit" value="Add to cart">
-                    </form>
-                </div>
-              </div>
-            </div>
-          </div>
     </div>
 </div>
 <hr>
