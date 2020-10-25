@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .forms import UserRegistrationForm
+from django.contrib.auth.decorators import login_required
+from orders.models import Order
 
 def register(request):
     if request.method == 'POST':
@@ -12,7 +14,10 @@ def register(request):
 
     else:
         user_form = UserRegistrationForm()
-
     return render(request, 'account/register.html', {'user_form': user_form})
 
-        
+
+@login_required
+def profile(request):
+	orders = Order.objects.filter(user=request.user)
+	return render(request, 'account/profile.html', {'orders': orders})

@@ -42,12 +42,15 @@
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             {% if request.user.is_authenticated %}
             <li class="nav-item mr-4">
-              <a class="h5" href="#">Profile</a>
+              <a class="h5" href="{% url 'account:profile' %}">Profile</a>
             </li>
             <li class="nav-item mr-4">
               <a class="h5" href="{% url 'account:logout' %}">Log out</a>
             </li>
             {% else %}
+            <li class="nav-item mr-4">
+              <a class="h5" href="{% url 'account:register' %}">Create account</a>
+            </li>
             <li class="nav-item mr-4">
               <a class="h5" href="{% url 'account:login' %}">Log in</a>
             </li>
