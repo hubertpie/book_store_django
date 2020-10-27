@@ -46,7 +46,7 @@ class Account(AbstractBaseUser):
     last_name = models.CharField(max_length=200)
     city = models.CharField(max_length=100)
     house_number = models.CharField(max_length=10)
-    aparatment_numer = models.CharField(max_length=10)
+    apartment_number = models.CharField(max_length=10)
     zip_code = models.CharField(max_length=6)
 
 
