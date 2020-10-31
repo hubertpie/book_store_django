@@ -10,7 +10,7 @@
 
   <title>Book Book</title>
   <link rel="stylesheet" type="text/css" href="/static/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/static/mycss.css">
+  <link rel="stylesheet" type="text/css" href="/static/mycss.css">
 
 </head>
 
@@ -42,10 +42,10 @@
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             {% if request.user.is_authenticated %}
             <li class="nav-item mr-4">
-              <a class="h5" href="#">Profile</a>
+              <a class="h5" href="{% url 'account:profile' %}">Profile</a>
             </li>
             <li class="nav-item mr-4">
-              <a class="h5" href="#">Log out</a>
+              <a class="h5" href="{% url 'account:logout' %}">Log out</a>
             </li>
             {% else %}
             <li class="nav-item mr-4">
