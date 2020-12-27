@@ -13,7 +13,7 @@ def profile(request):
 def register(request):
 	if request.method == 'POST':
 		account_form = AccountCreateForm(request.POST)
-		if account_form.is_valid:
+		if account_form.is_valid():
 			account_form.save()
 			return redirect('shop:book_list')
 	else:	

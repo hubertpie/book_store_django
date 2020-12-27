@@ -44,4 +44,3 @@ and populate data
 ```
 python .\populate_data2.py
 ```
-After many warnings about date you will have site with books to play with. Enjoy :)

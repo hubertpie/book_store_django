@@ -42,14 +42,6 @@ class Account(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_super_user = models.BooleanField(default=False)
     
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=200)
-    city = models.CharField(max_length=100)
-    house_number = models.CharField(max_length=10)
-    apartment_number = models.CharField(max_length=10)
-    zip_code = models.CharField(max_length=6)
-
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username',]
 

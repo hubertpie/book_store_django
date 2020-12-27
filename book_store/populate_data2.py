@@ -19,8 +19,8 @@ CATEGORIES_LIST = ['Fantasy','Adventure','Romance','Contemporary','Dystopian','M
 'Development','Motivational','Health','History',
 'Travel','Guide','Families','Humor',]
 
-for category in CATEGORIES_LIST:
-    Category.objects.create(name=category)
+# for category in CATEGORIES_LIST:
+#     Category.objects.create(name=category)
 
 if result.status_code == 200:
     soup = BeautifulSoup(result.content, "html.parser")
@@ -59,11 +59,12 @@ for book in book_urls:
                                 price= round(random.uniform(10, 40), 2),
                                 release_date=book_release_date,
                                 pages=book_pages)
-
+            print('book created')
             request_3 = requests.get(image_url)
             if request_3.status_code == 200:
                 book.image.save(name, ContentFile(request_3.content), save=True)
             else:
                 continue
-        except AttributeError:
+        except AttributeError as e:
+            print()
             continue
