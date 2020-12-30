@@ -134,10 +134,6 @@ CART_SESSION_ID = 'cart'
 LOGIN_REDIRECT_URL = '/shop'
 LOGOUT_REDIRECT_URL = '/shop'
 
-
-# Dont send mail please
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 BRAINTREE_MERCHANT_ID = secrets.BRAINTREE_MERCHANT_ID
 BRAINTREE_PUBLIC_KEY = secrets.BRAINTREE_PUBLIC_KEY
 BRAINTREE_PRIVATE_KEY= secrets.BRAINTREE_PRIVATE_KEY
@@ -152,3 +148,10 @@ braintree.Configuration.configure
     BRAINTREE_PRIVATE_KEY
     )
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = secrets.GMAIL_ACCOUNT
+EMAIL_HOST_PASSWORD = secrets.GMAIL_PASSWORD

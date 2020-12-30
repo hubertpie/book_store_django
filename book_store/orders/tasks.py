@@ -1,6 +1,7 @@
 from celery import shared_task
 from .models import Order
 from django.core.mail import send_mail
+from book_store.secrets import GMAIL_ACCOUNT
 
 @shared_task
 def order_created(order_id):
@@ -10,7 +11,7 @@ def order_created(order_id):
 
     mail_sent = send_mail(subject,
                         message,
-                        'admin@book_store.com',
+                        GMAIL_ACCOUNT,
                         [order.email])
 
     return mail_sent

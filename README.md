@@ -25,7 +25,9 @@ BRAINTREE_MERCHANT_ID = 'your BRAINTREE_MERCHANT_ID'
 BRAINTREE_PUBLIC_KEY = 'your BRAINTREE_PUBLIC_KEY' 
 BRAINTREE_PRIVATE_KEY = 'your BRAINTREE_PRIVATE_KEY'
 SECRET_KEY = 'your SECRET_KEY' 
-DB_PASSWORD = 'your DB_PASSWORD' 
+DB_PASSWORD = 'your DB_PASSWORD'
+GMAIL_ACCOUNT = 'your gmail account'
+GMAIL_PASSWORD = 'your gmail password' 
 ```
 Then of course you need to create your user and database for project
 ```bash
