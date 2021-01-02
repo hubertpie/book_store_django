@@ -19,8 +19,8 @@ CATEGORIES_LIST = ['Fantasy','Adventure','Romance','Contemporary','Dystopian','M
 'Development','Motivational','Health','History',
 'Travel','Guide','Families','Humor',]
 
-# for category in CATEGORIES_LIST:
-#     Category.objects.create(name=category)
+for category in CATEGORIES_LIST:
+    Category.objects.create(name=category)
 
 if result.status_code == 200:
     soup = BeautifulSoup(result.content, "html.parser")
