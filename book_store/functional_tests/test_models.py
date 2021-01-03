@@ -22,7 +22,7 @@ class OrderTest(TestCase):
                             postal_code='12-200',
                             city='New York')
     
-    def test_string_representation(self):
+    def test_order_string_representation(self):
         order = Order.objects.get(id=1)
         expected_object_string_represntation = "Order 1"
         self.assertEqual(expected_object_string_represntation, str(order))
@@ -38,3 +38,32 @@ class OrderTest(TestCase):
         order = Order.objects.get(id=1)
         self.assertEqual(1, order.items.all().count())
     
+    def test_order_total_cost(self):
+        OrderItem.objects.create(order=Order.objects.get(id=1),
+                                book=Book.objects.get(id=1),
+                                quantity=5)
+        order = Order.objects.get(id=1)
+        self.assertEqual(114.50, order.get_total_cost())
+
+class CategoryTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Category.objects.create(name='fantasy',
+                                slug='fantasy')
+        
+        Category.objects.create(name='sci-fi',
+                                slug='sci-fi')
+    
+    def test_category_string_representation(self):
+        fantasy_category = Category.objects.get(id=1)
+        self.assertEqual('fantasy', str(fantasy_category))
+
+    def test_adding_category_without_slug_field(self):
+        Category.objects.create(name='history')
+        history_category = Category.objects.get(id=3)
+        self.assertEqual('history', str(history_category))
+        self.assertEqual('history', history_category.slug)
+    
+    def test_category_absolute_url(self):
+        fantasy_category = Category.objects.get(id=1)
+        self.assertEqual('/shop/fantasy/', fantasy_category.get_absolute_url())
