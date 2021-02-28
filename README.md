@@ -1,12 +1,4 @@
-# book_store_django
-books_store_django it's  project, created for practicing django basics. On this site you can:
-- browse books by categories
-- look for specific author or title by search bar
-- add/delete book to cart
-- place order 
-- pay with your card by braintree payment gateway
-- create user and check his previous orders
-
+# Book Store
 ## Installation (windows)
 First you will need virtualenv
 ```
