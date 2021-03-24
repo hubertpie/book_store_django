@@ -17,9 +17,7 @@ Home page
 			    <div class="col-md-3">
 				  <div class="card mb-3 box-shadow">
                       <a href="{{ item.get_absolute_url }}">
-						  {% thumbnail item.image "200x200" as im %}
-                        <img class="img-thumbnail" src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
-						 {% endthumbnail %}
+                        <img class="img-thumbnail" src="{{ item.image }}" alt="Card image cap">
 					</a>
 					<div class="card-body">
                       <p class="h5"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></p>

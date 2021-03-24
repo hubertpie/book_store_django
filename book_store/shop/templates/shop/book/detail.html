@@ -22,10 +22,7 @@
 {% block content %}
 <div class="row">
     <div class="col-4">
-        {% load thumbnail %}    
-        {% thumbnail book.image "250" as im %}
-        <img src="{% if im %}{{ im.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}" alt="Card image cap">
-        {% endthumbnail %}
+        <img src="{{ book.image }}" alt="Card image cap">
     </div>
     <div class="col-6">
         <p class="h1">{{ book.title }}</p>
