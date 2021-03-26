@@ -1,6 +1,5 @@
 {% extends 'shop/base.html' %}
 {% load static %}
-{% load thumbnail %}
 {% block title %}
 {% if category %}
 {{ category.name }} Books
@@ -8,38 +7,34 @@
 Home page
 {% endif%}
 {% endblock %}
-
 {% block content %}
-<div class="album py-5 bg-light">
-	<div class="container">
-		<div class="row">
-            {% for item in books %}
-			    <div class="col-md-3">
-				  <div class="card mb-3 box-shadow">
-                      <a href="{{ item.get_absolute_url }}">
-                        <img class="img-thumbnail" src="{{ item.image }}" alt="Card image cap">
-					</a>
-					<div class="card-body">
-                      <p class="h5"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></p>
-                      <p class="card-text"><em>{{ item.author }}</em></p>
-                      <p class="card-text">{{ item.category }}</p>
-                      <p class="card-text text-primary">{{ item.price }}$</p>
-					  <div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-						  <form action="{% url 'cart:cart_add' item.id %}" method="POST">
-							  {{ cart_product_form }}
-							  {% csrf_token %}
-							  <input type="submit" value="Add to cart">
-						  </form>
-						</div>
-					  </div>
+
+<div class="row">
+	{% for item in books %}
+		<div class="col-2">
+		<div class="product-card">
+			<a href="{{ item.get_absolute_url }}">
+				<div class="product-tumb">
+					<img src="{{ item.image }}" class="product-image">
+				</div>
+			</a>
+			<div class="product-details">
+				<span class="product-catagory">{{ item.category }}</span>
+				<h4><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h4>
+				<p>{{ item.description|slice:"70" }}{% if item.description|length > 70 %}...{% endif %}</p>
+				<div class="product-bottom-details">
+					<div class="product-price">${{ item.price }}</div>
+					<div class="product-links">
+						<form action="{% url 'cart:cart_add' item.id %}" method="POST">
+							{{ cart_product_form }}
+							{% csrf_token %}
+							<button class="product-submit"	type="submit"><a href=""><i class="fa fa-shopping-cart"></i></a></button>
+						</form>
 					</div>
-				  </div>
-                </div>
-            {% endfor %}
+				</div>
+			</div>
 		</div>
-    </div>
-</div>
-
-
+		</div>
+	{% endfor %}
+	</div>
 {% endblock %}

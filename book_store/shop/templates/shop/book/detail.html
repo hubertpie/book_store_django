@@ -1,6 +1,5 @@
 {% extends 'shop/base.html' %}
 {% load static %}
-
 {% block title %}
 {{ book.title }}
 {% endblock %}
@@ -22,7 +21,7 @@
 {% block content %}
 <div class="row">
     <div class="col-4">
-        <img src="{{ book.image }}" alt="Card image cap">
+        <img class="img-thumbnail" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" src="{{ book.image }}" data-holder-rendered="true" style="height:600px; width: 500px; display: block;">
     </div>
     <div class="col-6">
         <p class="h1">{{ book.title }}</p>
@@ -54,6 +53,5 @@
     <div class="w-100"></div>
     <div class="col"><p><strong>Release date:</strong> {{ book.release_date }}</p></div>
     <div class="col"><p><strong>Pages:</strong> {{ book.pages }}</p></div>
-  </div>
-<p>Font</p>
+</div>
 {% endblock %}
